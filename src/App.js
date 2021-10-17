@@ -16,33 +16,34 @@ import { createStore } from "redux";
 import reducer from "./redux"
 import {
   configureFonts, DefaultTheme, 
-  DarkTheme as PaperDarkTheme,
-  DefaultTheme as PaperDefaultTheme,
+  // DarkTheme as PaperDarkTheme,
+  // DefaultTheme as PaperDefaultTheme,
   Provider as PaperProvider,
 } from 'react-native-paper';
 
 
 import Login from "./Login";
 import HomeScreen from "./Home";
-import DetailsScreen from './About';
+import About from './About';
 
 import { fontConfig } from './utils/fonts';
 
 
 
-const CombinedDefaultTheme = {
-  ...PaperDefaultTheme,
-  ...NavigationDefaultTheme,
-};
-const CombinedDarkTheme = { ...PaperDarkTheme, ...NavigationDarkTheme };
+// const CombinedDefaultTheme = {
+//   ...PaperDefaultTheme,
+//   ...NavigationDefaultTheme,
+// };
+// const CombinedDarkTheme = { ...PaperDarkTheme, ...NavigationDarkTheme };
 
 const theme = {
   ...DefaultTheme,
   fonts: configureFonts(fontConfig),
   colors: {
     ...DefaultTheme.colors,
-    primary: 'tomato',
-    accent: 'yellow',
+    primary: '#fff',
+    accent: '#bada55',
+    background: "tomato"
     
   },
 };
@@ -74,7 +75,7 @@ const TabNav = () => (<Tab.Navigator
   <Tab.Screen name="News" component={HomeScreen}
  
   />
-  <Stack.Screen name="About" component={DetailsScreen} />
+  <Stack.Screen name="About" component={About} />
 
 </Tab.Navigator>
 );
@@ -82,12 +83,12 @@ const TabNav = () => (<Tab.Navigator
 const Stack = createStackNavigator();
 
   function App() {
-  const [isThemeDark, setIsThemeDark] = React.useState(false);
-  let theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
+  // const [isThemeDark, setIsThemeDark] = React.useState(false);
+  // let theme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
 
-  const toggleTheme = React.useCallback(() => {
-    return setIsThemeDark(!isThemeDark);
-  }, [isThemeDark]);
+  // const toggleTheme = React.useCallback(() => {
+  //   return setIsThemeDark(!isThemeDark);
+  // }, [isThemeDark]);
     
     
 
@@ -99,13 +100,13 @@ const Stack = createStackNavigator();
     }, []);
 
 
-  const preferences = React.useMemo(
-    () => ({
-      toggleTheme,
-      isThemeDark,
-    }),
-    [toggleTheme, isThemeDark]
-  )
+  // const preferences = React.useMemo(
+  //   () => ({
+  //     toggleTheme,
+  //     isThemeDark,
+  //   }),
+  //   [toggleTheme, isThemeDark]
+  // )
     
     
   const Store = createStore(reducer, middlewares);
@@ -113,7 +114,7 @@ const Stack = createStackNavigator();
 
     return (
       <Provider store={Store}>
-    <PreferencesContext.Provider value={preferences}>
+    {/* <PreferencesContext.Provider value={preferences}> */}
     <PaperProvider theme={theme}>
       <NavigationContainer theme={theme}>
           <Stack.Navigator initialRouteName="Login"
@@ -127,9 +128,9 @@ const Stack = createStackNavigator();
              <Stack.Screen
             name="Login"
             component={Login}
-            options={{headerShown: true}}/>
+            options={{headerShown: false}}/>
           <Stack.Screen name="Home"  component={TabNav}  options={{ headerTitle: 'Top News' ,  headerTintColor: white, headerStyle: {
-                    backgroundColor: purple,
+            backgroundColor: purple,
             }
             }} />
              <Tab.Screen name="News" component={HomeScreen}
@@ -138,7 +139,7 @@ const Stack = createStackNavigator();
 }
 }} 
             />
-                        <Tab.Screen name="About" component={HomeScreen}
+ <Tab.Screen name="About" component={HomeScreen}
  options={{ headerTitle: 'About' ,  headerTintColor: white, headerStyle: {
   backgroundColor: purple,
 }
@@ -149,7 +150,7 @@ const Stack = createStackNavigator();
         </Stack.Navigator>
       </NavigationContainer>
       </PaperProvider>
-        </PreferencesContext.Provider>
+        {/* </PreferencesContext.Provider> */}
         </Provider>
       
   );

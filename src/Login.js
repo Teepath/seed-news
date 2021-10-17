@@ -3,9 +3,10 @@ import { useDispatch } from 'react-redux';
 import { SafeAreaView, View, StyleSheet, Text, StatusBar, TouchableOpacity, KeyboardAvoidingView, TextInput, Platform, Alert } from 'react-native';
 import { white, red, } from './utils/colors';
 import { Image } from 'react-native';
-import { Button, useTheme } from 'react-native-paper';
+import { Button, Title, useTheme } from 'react-native-paper';
 import { createTable, db } from './utils/api_data';
 import { setUserActionCreator, getUserHandle} from "./action/action"
+import { Headline, withTheme  } from 'react-native-paper';
 
 
 // const db = openDatabase(
@@ -58,9 +59,12 @@ function Login ({navigation}) {
     }
 
     const { colors, fonts } = useTheme();
+  
     return (
-        <SafeAreaView style={styles.container}>
-            <Image source={require('./assets/home.png')} style={ styles.img}/>
+        <View style={styles.container}>
+            <Text style={{ color: colors.accent, fontSize: 40, margin:10}}> Daily News  </Text>
+            <Image source={require('./assets/home.png')} style={styles.img} />
+            
             <KeyboardAvoidingView  style={styles.input} behavior="padding">
                 <TextInput value={ name} placeholder="Enter your Name" style={{fontSize: 30}}
                    onChangeText={(value)=>  handleName(value) }          
@@ -68,10 +72,10 @@ function Login ({navigation}) {
                    </KeyboardAvoidingView>
                    
              <Button raised theme={{ roundness: 5 }} onPress={()=> handleSubmit()}>
-            <Text style={{fontSize:Platform.OS === "web"?fonts.regular: 30}}> Submit</Text>
+            <Text style={{fontSize:Platform.OS === "web"?fonts.regular: 30}}> Login </Text>
     </Button>
                         
-        </SafeAreaView>
+        </View>
     )
 }
 
@@ -82,19 +86,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#00008b',
         justifyContent: 'center',
         alignItems: "center",
-        width:"100%"
+        width: "100%",
     },
 
 
-    text: {
-        fontSize: 35,
-        margin: "auto",
-        padding: 20
-    },
-    textBtn: {
-        fontSize: 25,
-        color: white
-    },
+  
+  
 
     img: {
         width: "30%",

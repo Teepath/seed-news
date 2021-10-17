@@ -12,12 +12,14 @@ function userReducer(state = initialState, action){
         case SET_USER_NAME:
             return {
                 ...state,
-                user: action.user
+                user: action.user,
+                authentication:true
             };
         case GET_AUTHEDUSER:
             return {
                 ...state,
-                user:action.user
+                user: action.user,
+                authentication:true
             };
 
         case GET_DATA:
